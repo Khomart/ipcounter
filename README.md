@@ -62,6 +62,7 @@ Time taken: 3m1.751277208s
 | `clean`    | Remove build artifacts under `bin/`.       | `rm -rf bin`                            |
 
 ## Potential Improvements
+- **Storage optimization:** for small files (below 10 million lines), we can potentially use an alternative data structure (a hashmap) to store the values of the IPs, since reading and counting operations can be performed on a single thread and we won't need to handle concurrency. 
 - **Error handling:** Malformed lines are logged and skipped to ensure progress. Strict failure-on-error would surface issues faster but halt processing of large datasets.
 - **Counter:** We can also use threading to count unique ips, although the result of this improvement can be negligible in overall performance.
 

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Command genips generates random IPv4 addresses and writes them to a file.
 package main
 
 import (

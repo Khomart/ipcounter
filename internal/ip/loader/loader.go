@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package loader provides facilities for reading IPv4 address files and
+// streaming them into a storage backend.
 package loader
 
 import (
@@ -29,12 +31,16 @@ type storage interface {
 	Add(ip uint32)
 }
 
+// Loader reads IPv4 addresses from a file and stores them using the provided
+// storage backend.
 type Loader struct {
 	storage  storage
 	fileName string
 	workers  int64
 }
 
+// New creates a Loader that will read from the given file using the supplied
+// storage backend and worker count.
 func New(storage storage, fileName string, workers int64) *Loader {
 	return &Loader{
 		storage:  storage,
@@ -43,6 +49,8 @@ func New(storage storage, fileName string, workers int64) *Loader {
 	}
 }
 
+// Do partitions the configured input file among worker goroutines and streams
+// every parsed IPv4 address into the storage backend.
 func (p *Loader) Do() error {
 	file, err := os.Open(p.fileName)
 	if err != nil {

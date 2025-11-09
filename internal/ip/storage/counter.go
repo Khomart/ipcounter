@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package storage provides a concurrency-safe bitmap for tracking unique IPv4
+// addresses.
 package storage
 
 import (
@@ -19,16 +21,19 @@ import (
 	"sync/atomic"
 )
 
+// Storage holds a bitmap that records which IPv4 addresses have been seen.
 type Storage struct {
 	bitmap []atomic.Uint64
 }
 
+// New allocates and returns a Storage ready to record IPv4 addresses.
 func New() *Storage {
 	return &Storage{
 		bitmap: make([]atomic.Uint64, 1<<32/64),
 	}
 }
 
+// Add marks the provided IPv4 address as seen.
 func (h *Storage) Add(ip uint32) {
 	idx := ip / 64
 	mask := uint64(1) << (ip % 64)
@@ -44,6 +49,7 @@ func (h *Storage) Add(ip uint32) {
 	}
 }
 
+// GetUniqueCount returns the number of distinct IPv4 addresses recorded.
 func (h *Storage) GetUniqueCount() int {
 	count := 0
 	for i := range h.bitmap {
