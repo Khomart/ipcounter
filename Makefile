@@ -11,18 +11,14 @@ run: ## Run the ipcounter application.
 	go run ./cmd/ipcounter
 
 test: ## Execute all Go tests.
-	go test ./...
-
-test-race: ## Execute all Go tests with race detection.
 	go test -race ./...
 
 bench: ## Execute all Go benchmarks.
 	go test -bench=. ./...
 
 test-all: ## Execute all Go tests and benchmarks.
-	test
-	test-race
-	bench
+	$(MAKE) test-race
+	$(MAKE) bench
 
 fmt: ## Format the ipcounter codebase.
 	go fmt ./cmd/ipcounter ./internal/...

@@ -54,10 +54,9 @@ Time taken: 3m1.751277208s
 |------------|--------------------------------------------|-----------------------------------------|
 | `build`    | Build the `ipcounter` binary into `bin/`.  | `go build -o bin/ipcounter ./cmd/ipcounter` |
 | `run`      | Run the app without creating a binary.     | `go run ./cmd/ipcounter`                |
-| `test`     | Run unit and integration tests.            | `go test ./...`                         |
-| `test-race`| Run tests with the race detector enabled.  | `go test -race ./...`                   |
+| `test`     | Run tests with the race detector enabled.  | `go test -race ./...`                   |
 | `bench`    | Execute benchmarks defined in tests.       | `go test -bench=. ./...`                |
-| `test-all` | Run `test`, `test-race`, then `bench`.     | invocations above in sequence           |
+| `test-all` | Run `test` and `bench`.                    | invocations above in sequence           |
 | `fmt`      | Format Go code under `cmd/ipcounter` and `internal`. | `go fmt ./cmd/ipcounter ./internal/...` |
 | `clean`    | Remove build artifacts under `bin/`.       | `rm -rf bin`                            |
 
